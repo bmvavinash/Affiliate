@@ -60,6 +60,33 @@ function cartReducer(state, action) {
         },
       };
     }
+    case 'submit': {
+      const product = action.payload;
+      const currentEntry = state.products[product.id];
+      let newEntry;
+      if (!currentEntry) {
+        newEntry = {
+          ...currentEntry,
+          quantity: currentEntry.quantity + 1,
+        };
+      } else {
+        newEntry = {
+          ...product,
+          quantity: 1,
+        };
+      }
+
+      const { finalPrice } = calculatePriceDetails(product.price);
+      return {
+        ...state,
+        // totalQuantity: state.totalQuantity + 1,
+        // totalPrice: state.totalPrice + finalPrice,
+        products: {
+          ...state.products,
+          [product.id]: newEntry,
+        },
+      };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }

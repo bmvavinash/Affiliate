@@ -5,7 +5,8 @@ import { mdiMagnify } from '@mdi/js';
 import './Search.scss';
 
 const categories = [
-  'Mobiles'
+  'Earphones'
+  // 'Mobiles'
   // 'All Categories',
   // 'Deals',
   // 'Alexa Skills',

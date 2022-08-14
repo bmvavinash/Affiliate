@@ -6,6 +6,7 @@ import productsApi from 'api/products';
 import Loader from 'components/general/Loader';
 import Error from 'components/general/Error';
 import ProductCard from './ProductCard';
+import Input from './Input';
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -19,7 +20,8 @@ function Products() {
     setError(null);
 
     try {
-      const json = await productsApi.getList();
+      // const json = await productsApi.getList();
+      const json = await Input;
       setProducts(json);
     } catch (_error) {
       setError(_error);
@@ -37,6 +39,7 @@ function Products() {
     return <Error message="Failed to load products" actionFn={loadProducts} />;
   } else {
     return (
+      // <div >
       <div className="products">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
