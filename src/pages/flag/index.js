@@ -1,4 +1,6 @@
-import React from 'react';
+import React , {useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
+import Redirect from './Redirect'
 import O1 from '../../images/1.jpeg';
 import O2 from '../../images/2.jpeg';
 import O3 from '../../images/3.jpeg';
@@ -31,13 +33,92 @@ import O26 from '../../images/26.jpeg';
 import CurrencyFormat from 'components/general/CurrencyFormat';
 
 function FlagPage() {
+  const [count, setCount] = useState("");
+  const [counted, setCounted] = useState("");
+  let str=count ;
+  useEffect(() => {
+    let newurl=count.indexOf("/dp/")+14
+      // setCounted(count.substr(0,newurl)+"?tag=109dd6-21");
+      // setCounted(count.substr(0,36)+"?tag=109dd6-21");
+      // console.log(count.substr(0,newurl)+"?tag=109dd6-21");
+    setCounted(str.substr(0,newurl)+"?tag=109dd6-21");
+    console.log(count.substr(0,newurl)+"?tag=109dd6-21");
+    str=count.substr(0,36)+"?tag=109dd6-21"
+    // setCounted("hai")
+    console.log(newurl)
+    return(
+      <div>
+        <Link to={{ pathname: str }} target="_blank" >
+          <button >Redirect</button>
+          <h3>Redirect</h3>
+        </Link>
+      </div>
+    )
+  },[count]);
+  const textboxinput = (event) => {
+    setCount(event.target.value)
+  }
+  const funcounted = (event,count) => {
+    // if(event == undefined)
+    event.preventDefault();
+    let str ;
+    if(count!=""){
+      let newurl=count.indexOf("/dp/")+14
+      setCounted(count.substr(0,newurl)+"?tag=109dd6-21");
+      // setCounted(count.substr(0,36)+"?tag=109dd6-21");
+      console.log(count.substr(0,newurl)+"?tag=109dd6-21");
+      str=count.substr(0,newurl)+"?tag=109dd6-21"
+      // setCounted("hai")
+      console.log("button function")
+    }
+    return(
+      <div>
+        <Link to={{ pathname: str }} target="_blank" >
+          <button onClick={event => funcounted(event,count)} >Redirected</button>
+          <h3>Redirecth3</h3>
+        </Link>
+      </div>
+    )
+  }
+  
+  // handleChange() {
+  //   this.setState({value: event.target.value});
+  // }
 //   const { products, totalQuantity, totalPrice } = useCartState();
 //   const productIds = Object.keys(products).filter((id) => products[id]);
 
   return (
     <div className="cart">
+      <form>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
+  <label style={{ color: 'crimson', fontSize:15, lineHeight : 1, padding: 20}}>
+    URL :&nbsp;
+    {/* <p> </p> */}
+    <input style={{ color: 'crimson', lineHeight : 1, leftpadding: 20}} type="text" name="name" onChange={event => textboxinput(event)}  />
+  </label>
+      {/* <button onClick={event => funcounted(event,count)}>Convert</button> */}
+      {/* <label>
+  <input type="text" name="name" value={counted} disabled />
+  </label> */}
+</form>
+<br/>
+<Link to={{ pathname: counted }} target="_blank" >
+          <button style={{ color: 'crimson', fontSize:15, lineHeight : 1 ,marginLeft: 100, fillOpacity:'blue'}}>Convert</button>
+          {/* <h3>Redirect</h3> */}
+        </Link>
+{/* <Redirect url={counted} /> */}
+{/* <Link to={{ pathname: count }} target="_blank" >Hi</Link> */}
+      {/* <label> Converter </label>
+      <input type="text" value={count} />
+      <button onClick={funcounted}>Convert</button>
+      <label> Output</label>
+      <input type="text" value={counted} /> */}
         {/* <h3>Hai</h3> */}
-        <div>
+        {/* <div>
         <img //style="height:100px; width:100px;"
             className="product-card__image"
             alt={"hai"}
@@ -169,7 +250,7 @@ function FlagPage() {
             src={O26}
           />
         
-        </div>
+        </div> */}
         {/* <FlagItem/> */}
       {/* <div className="cart__main">
         <div className="cart__items"> */}
