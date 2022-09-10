@@ -1,5 +1,6 @@
-import React , {useEffect, useState} from 'react';
+import React , {useEffect, useState, useRef} from 'react';
 import { Link } from 'react-router-dom';
+// import Webdriver from 'Selenium'
 import Redirect from './Redirect'
 import O1 from '../../images/1.jpeg';
 import O2 from '../../images/2.jpeg';
@@ -31,13 +32,24 @@ import O26 from '../../images/26.jpeg';
 
 // import { useCartState } from 'cart-context';
 import CurrencyFormat from 'components/general/CurrencyFormat';
-
-function FlagPage() {
+// async function example() {
+//   const { Builder, By, Key, util} = require("selenium-webdriver")
+// let driver = await new Builder().forBrowser("firefox").build();
+// await driver.get("https://amzn.eu/d/fvjhOPh");
+// let strUrl = await driver.getCurrentUrl()
+// await driver.get("http://google.com");
+// // await driver.get((await driver.getCurrentUrl()).substring(0,15));
+// await driver.get(strUrl);
+// }
+const FlagPage=() => {
   const [count, setCount] = useState("");
   const [counted, setCounted] = useState("");
   let str=count ;
+  // const inputref = useRef(null);
+  // async function example() {
   useEffect(() => {
-    let newurl=count.indexOf("/dp/")+14
+    if(count.length>12){
+    let newurl=count.indexOf("/dp/")+15
       // setCounted(count.substr(0,newurl)+"?tag=109dd6-21");
       // setCounted(count.substr(0,36)+"?tag=109dd6-21");
       // console.log(count.substr(0,newurl)+"?tag=109dd6-21");
@@ -46,6 +58,14 @@ function FlagPage() {
     str=count.substr(0,36)+"?tag=109dd6-21"
     // setCounted("hai")
     console.log(newurl)
+    }
+    else if(count.includes("amzn")){
+      // example();
+    }
+    else{
+      str=`https://www.amazon.in/dp/${count}/?tag=109dd6-21`
+    }
+  
     return(
       <div>
         <Link to={{ pathname: str }} target="_blank" >
@@ -55,6 +75,7 @@ function FlagPage() {
       </div>
     )
   },[count]);
+
   const textboxinput = (event) => {
     setCount(event.target.value)
   }
@@ -71,6 +92,7 @@ function FlagPage() {
       // setCounted("hai")
       console.log("button function")
     }
+    
     return(
       <div>
         <Link to={{ pathname: str }} target="_blank" >
@@ -80,6 +102,7 @@ function FlagPage() {
       </div>
     )
   }
+  
   
   // handleChange() {
   //   this.setState({value: event.target.value});
@@ -95,10 +118,10 @@ function FlagPage() {
         <br/>
         <br/>
 
-  <label style={{ color: 'crimson', fontSize:15, lineHeight : 1, padding: 20}}>
-    URL :&nbsp;
-    {/* <p> </p> */}
-    <input style={{ color: 'crimson', lineHeight : 1, leftpadding: 20}} type="text" name="name" onChange={event => textboxinput(event)}  />
+  <label style={{ color: 'crimson', fontSize:15, lineHeight : 1,lineWidth :8, padding: 20}}>
+    URL or ASIN:&nbsp;
+    {/* <p> </p> ref={inputref}*/}
+    <input style={{ color: 'crimson', lineHeight : 2,lineWidth :8, leftpadding: 20}} type="text" name="name" onChange={event => textboxinput(event)}  />
   </label>
       {/* <button onClick={event => funcounted(event,count)}>Convert</button> */}
       {/* <label>
@@ -107,9 +130,12 @@ function FlagPage() {
 </form>
 <br/>
 <Link to={{ pathname: counted }} target="_blank" >
-          <button style={{ color: 'crimson', fontSize:15, lineHeight : 1 ,marginLeft: 100, fillOpacity:'blue'}}>Convert</button>
+          <button style={{ color: 'crimson', fontSize:20, lineHeight : 1 ,marginLeft: 100, fillOpacity:'blue'}}>Convert</button>
           {/* <h3>Redirect</h3> */}
         </Link>
+        <br></br>
+        <br></br>
+        <label style={{ color: 'crimson', fontSize:15, lineHeight : 1 ,marginLeft: 30, fillOpacity:'blue'}}>ASIN : Click on " See all Features and details" and scrolldown to find ASIN<br/></label>
 {/* <Redirect url={counted} /> */}
 {/* <Link to={{ pathname: count }} target="_blank" >Hi</Link> */}
       {/* <label> Converter </label>
