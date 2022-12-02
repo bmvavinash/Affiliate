@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import Icon from '@mdi/react';
 import { mdiMagnify } from '@mdi/js';
+import { searchImg } from '../../images/search.jpg';
 
 import './Search.scss';
+import Products from '../../pages/home/Products';
+import { useCartDispatch } from 'cart-context';
 
 const categories = [
-  'Mobiles'
+  'Earphones'
+  // 'Mobiles'
   // 'All Categories',
   // 'Deals',
   // 'Alexa Skills',
@@ -51,11 +55,25 @@ const categories = [
 ];
 
 function Search() {
-  const [category, setCategory] = useState(0);
+  const [category, setCategory] = useState("");
+  const [searchcategory, setSearchCategory] = useState("");
+  const [toSearch, settoSearch] = useState("");
+  const dispatch = useCartDispatch();  
+
+
+  const inputCategory = (event) => {
+    setCategory(event.target.value)
+  }
+  const onButtonSearch = (event) => {
+    setSearchCategory(event.target.value)
+    // setCategory(event.target.value)
+    console.log('OnButtonSearch');
+    // dispatch()
+  }
 
   return (
     <div className="search">
-      <select
+      {/* <select
         className="search__select"
         value={category}
         onChange={(e) => setCategory(parseInt(e.target.value, 10))}
@@ -65,11 +83,15 @@ function Search() {
             {o}
           </option>
         ))}
-      </select>
-      <input className="search__input" type="text" />
-      <button className="search__button">
+      </select> */}
+      <input className="search__input" type="text" value={category} onChange = {inputCategory} />
+      {/* <Products category={category} /> */}
+      <button className="search__button" onClick={onButtonSearch}>
+      {/* <Products category={category} /> */}
+        {/* <Icon path={searchImg} size={1.4} /> */}
         <Icon path={mdiMagnify} size={1.4} />
       </button>
+
     </div>
   );
 }

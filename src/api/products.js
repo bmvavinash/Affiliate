@@ -1,3 +1,4 @@
+import Input from 'pages/home/Input';
 import { apiRequest } from './utils';
 
 function getProductsList() {
@@ -5,7 +6,8 @@ function getProductsList() {
 }
 
 function getProduct(id) {
-  return apiRequest('GET', 'products/' + id);
+  // return apiRequest('GET', 'products/' + id);
+  return Input[id-Input[0].id]; 
 
 }
 

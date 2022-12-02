@@ -1,28 +1,102 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Information.scss';
 import Rating from 'components/general/Rating';
 import { calculatePriceDetails } from 'utils.js/product';
 import CurrencyFormat from 'components/general/CurrencyFormat';
 import AddToCard from 'components/product/AddToCart';
+import { Link } from 'react-router-dom';
 
-function Information({ product }) {
-    const { finalPrice, basePrice } = calculatePriceDetails(
-        product.price,
-    );
+function Information({ product,person,tag }) {
+    console.log('product in information is '+product.id);
+    console.log('person is '+person);
+    let text="",link,wats;
+    try{
+        let i;
+        wats = `https://wa.me/919951797149?text=Error%20in%20${product.id}`;
+        text = "";
+        // text = product.text_entities[0].text;
+        for(i=0;i<product.text_entities.length;i++){
+            if(product.text_entities[i].type == "link"){
+                link = product.text_entities[i].text;
+            }
+        }
+            for(i=0;i<product.text_entities.length;i++){
+            if(product.text_entities[i].type == "plain"){
+                text = text + product.text_entities[i].text+"\n";
+                // break;
+            }
+            else if(product.text_entities[i].type == "link"){
+                // text = text + product.text_entities[i].text+"\n";
+                break;
+            }
+        }
+        // <div className="information__header">{product.text_entities[0].type!="link" ? product.text_entities[0].text : "hai"}</div>
+    }
+    catch(error){
+        console.log('Error in Info' +error)
+    }
+    // useEffect(() => {
+    //     return(
+    //         <Link to={{ pathname: link }} target="_blank" ></Link>
+    //     )
+    // });
+
+    // console.log('product in information is '+id);
+    // const { finalPrice, basePrice } = calculatePriceDetails(
+    //     product.price,
+    // );
     return (
         <>
             {product && (
                 <div className="information">
-                    <div className="information__header">{product.title}</div>
-                    <div className="information__category">Brand: {product.category}</div>
-                    {product.rating && (
+                    {/* <div className="information__header">{product.from}</div> */}
+                    {/* <div className="information__header">{product.text_entities[0].text}</div> */}
+                    <div className="information__header">{text}</div>
+                    {/* try{
+                    <div className="information__header">{product.text_entities[0].type!="link" ? product.text_entities[0].text : "hai"}</div>
+                    <div className="information__header">{product.text_entities[0].type!="link" ? product.text_entities[0].text : "hai"}</div>
+                    }
+                    catch(error){
+                        console.log('Error in Info' +error)
+                    } */}
+                    {/* <div className="information__category">Brand: {product.text_entities[1].text}</div> */}
+                        <br />
+                        <br />
+
+
+            <Link to={{ pathname: link }} target="_blank" >
+              <button style={{ color: 'crimson', fontSize:20, lineHeight : 1 ,marginLeft: 100, fillOpacity:'blue'}}>View in Amazon</button>
+            </Link>
+            <br />
+            <br />
+            <br />
+            <br />
+            
+
+            <Link to="/" className="logo">
+
+              <button style={{ color: 'crimson', fontSize:20, lineHeight : 1 ,marginLeft: 100, fillOpacity:'blue'}}>View all Products</button>
+            </Link>
+            <br />
+            <br />
+            
+            {/* <Link to={{ pathname: wats }} target="_blank" >
+              <button style={{ color: 'crimson', fontSize:20, lineHeight : 1 ,marginLeft: 100, fillOpacity:'blue'}}>Facing Issue ?</button>
+            </Link> */}
+
+
+                    {/* <Link to={{ pathname: product.text_entities[1].text }} target="_blank" > */}
+                        {/* </Link> */}
+
+
+                    {/* {product.rating && (
                         <div className="information__rating">
                             <Rating maxRating={5} rating={product.rating.value} />
                             <div className="information__rating-label">{product.rating.count} ratings</div>
                         </div>
-                    )}
+                    )} */}
 
-                    {product.price && (
+                    {/* {product.price && (
                         <div className="information__pricing">
                             <div className="information__price">
                                 <span className="information__label">M.R.P. : </span>
@@ -45,21 +119,21 @@ function Information({ product }) {
                                 {product.price.discount}
                             </div>
                         </div>
-                    )}
+                    )} */}
 
-                    <AddToCard product={product} />
+                    {/* <AddToCard product={product} /> */}
 
 
-                    <div className="information__specs">
+                    {/* <div className="information__specs">
                         {product.specs &&
                             product.specs.map((spec, i) => (
                                 <div className="information__spec" key={i}>
                                     <span> {spec.name}</span> : <span>{spec.value}</span>
                                 </div>
                             ))}
-                    </div>
+                    </div> */}
 
-                    <div className="information__features">
+                    {/* <div className="information__features">
                         <div className="information__spec-header">About this item</div>
                         <ul>
                             {product.features &&
@@ -69,7 +143,7 @@ function Information({ product }) {
                                     </li>
                                 ))}
                         </ul>
-                    </div>
+                    </div> */}
                 </div>
             )}
         </>

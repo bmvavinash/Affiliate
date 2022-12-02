@@ -5,12 +5,15 @@ import './index.scss';
 import Banner from './Banner';
 import Products from './Products';
 
-function HomePage() {
+function HomePage(data) {
+  console.log("Home Page tag is "+data.tag)
   return (
     <div className="home">
-      <Banner />
+      {/* <Banner /> */}
+      {/* <h3>Watches</h3> */}
       <div className="home__section">
-        <Products />
+        {/* <Products  /> */}
+        <Products tag = {data.tag} />
       </div>
     </div>
   );

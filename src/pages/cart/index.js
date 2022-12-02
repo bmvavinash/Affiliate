@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './index.scss';
+// import './index.scss';
 
 import { useCartState } from 'cart-context';
 import CartItem from './CartItem';
