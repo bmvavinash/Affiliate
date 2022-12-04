@@ -15,13 +15,20 @@ import Input from './Input';
 // import '../../images/'
 // import FlagPage from '../flag/index';
 
-// import { Container } from '@material-ui/core';
+import Container  from '@material-ui/core/Container';
+import Card  from '@material-ui/core/Card';
+import CardContent  from '@material-ui/core/CardContent';
+import CardMedia  from '@material-ui/core/CardMedia';
+import CardHeader  from '@material-ui/core/CardHeader';
+import useStyles from './productcd';
+
 
 // import Button from '@mui/material/Button';
 
 
 function ProductCard({ className, product, tag }) {
   let prd;
+  const classes = useStyles();
   if(product.id==1)
   // prd = product.links
     prd="https://amzn.to/3pfGpOz"
@@ -90,6 +97,7 @@ function ProductCard({ className, product, tag }) {
   console.log('product link is '+prd);
   console.log('product is '+product.id);
   console.log('product tag is '+tag)
+  console.log('product photo is '+product.photo);
   if(product.photo != undefined){
     if(product.tag == "avinash"){
       picture =require(`../../images/${product.photo}`);
@@ -101,10 +109,12 @@ function ProductCard({ className, product, tag }) {
 
   return (
     <>
-    <div className="product-card-wrapper">
-    {/* <Container className="product-card-wrapper"> */}
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-      <div className={classNames('product-card', { [className]: className })}>
+    {/* <div className="product-card-wrapper"> */}
+    <Container maxWidth="md">
+      {/* <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta> */}
+      {/* <div className={classNames('product-card', { [className]: className })}> */}
+
+      <Card variant='outlined' key={product.id} className={classes.root1}  >
         {/* <div className="product-card__price">
           <CurrencyFormat
           className="product-card__amount"
@@ -133,10 +143,15 @@ function ProductCard({ className, product, tag }) {
         {/* <div className="product-card__title">{product.title}</div> */}
         {/* <div className="product-card__title">{product.text_entities[0].text}</div> */}
 
-        <div className="product-card__title">{product.text_entities[0].type=="plain" ? product.text_entities[0].text :
+        {/* <div className="product-card__title"> */}
+        <CardHeader title=
+          {product.text_entities[0].type=="plain" ? product.text_entities[0].text :
          product.text_entities[1].type=="plain"?product.text_entities[1].text:
          product.text_entities[2].type=="plain"?product.text_entities[2].text:"hai"
-         }</div>
+         }
+        >
+         {/* </div> */}
+         </CardHeader>
         {/* <div className="product-card__title">{prd}</div> */}
         {/* <div className="product-card__title">{product.text_entities[0].text}</div> */}
         {/* (product.category == "Realestate" ?  */}
@@ -145,19 +160,24 @@ function ProductCard({ className, product, tag }) {
         {/* @Telegram Products */}
         {/* <Link to={{ pathname: product.text_entities[1].text }} target="_blank" > */}
 
+        {/* <Link to={(tag == "avinash" ? `/product/${product.id}`:`/deals/product/${product.id}`)} className="product-card__gallery"> 
+         <CardMedia className={classes.media} image="https://m.media-amazon.com/images/I/81SW-RJkpTL._SL1500_.jpg" title='hai'>
+        </CardMedia>
+        </Link> */}
 
-        <Link to={(tag == "avinash" ? `/product/${product.id}`:`/deals/product/${product.id}`)} className="product-card__gallery"> 
         {/* <Information key={product.id} product={product} /> */}
-
 
         {/* ) */}
         {/* <img src="/images/amazon-logo.png" /> */}
         {/* <img src={require('../../images/amazon-logo.png')} alt="not working" /> */}
-        <img className="product-card__image" 
+
+
+        {/* <img className="product-card__image" 
         src={(tag == "avinash" ? require(`../../images/${product.photo}`):require(`../../images/pictures/${product.photo}`))} 
-        // src={picture} 
-        alt="not working" />
-        <br />
+        alt="not working" /> */}
+
+        
+        {/* <br /> */}
         {/* <img src='../../images/1.jpeg'/>
           
              className="product-card__image"
@@ -169,21 +189,23 @@ function ProductCard({ className, product, tag }) {
              alt={product.from}
              src={product.images[0]}
         />   */}
-        </Link>
-        <div className="product-card__actions">
+        {/* <div className="product-card__actions"> */}
+        <CardContent>
         <Link to={{ pathname: prd }} target="_blank" >
-        <button style={{ color: 'crimson', fontSize:20, lineHeight : 1 ,marginLeft: 100, fillOpacity:'blue', backgroundColor:"greenyellow"}}>View in Amazon</button>
+        {/* <button style={{ color: 'crimson', fontSize:20, lineHeight : 1 ,marginLeft: 100, fillOpacity:'blue', backgroundColor:"greenyellow"}}>View in Amazon</button> */}
+        <button style={{color: 'crimson', backgroundColor:"greenyellow"}} color='primary' variant='contained' >View in Amazon</button>
           {/* <button className='product-card__buttons' >View in Amazon</button> */}
         </Link>
-          </div>
+          </CardContent>
         {/* <button onClick="https://www.google.com">Submit</button> */}
         {/* <div className="product-card__actions">
           <AddToCard product={product} /> */}
           {/* <AddToCard product={product} /> */}
         {/* </div> */}
-      </div>
-    </div>
-    {/* </Container> */}
+      {/* </div> */}
+      </Card>
+    {/* </div> */}
+    </Container>
     </>
   );
 }

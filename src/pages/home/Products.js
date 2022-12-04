@@ -11,6 +11,16 @@ import Input from './Input';
 import Deals from './Deals';
 // import Container from './@material-ui/core/Container';
 import { useParams } from 'react-router-dom';
+
+import Container  from '@material-ui/core/Container';
+import Card  from '@material-ui/core/Card';
+import CardContent  from '@material-ui/core/CardContent';
+import CardMedia  from '@material-ui/core/CardMedia';
+import CardHeader  from '@material-ui/core/CardHeader';
+import { Grid } from '@material-ui/core';
+import useStyles from './productcd';
+
+
 // import FlagPage from '../flag/index';
 let categoryvalue="";
 function Products(data) {
@@ -19,6 +29,8 @@ function Products(data) {
   let tag = data.tag;
   console.log("Asin Value is "+asinId);
   // if(asinId != ""){
+
+  const classes = useStyles();
 
   // }
 // function Products(setCounted) {
@@ -95,57 +107,61 @@ function Products(data) {
     return <Error message="Failed to load products" actionFn={loadProducts} />;
   } else {
     return (
-      <div >
+      // <div >
+      <Container maxWidth="md">
         <div>
         <input className="search__input" type="text" value={category} placeholder="Search Here" onChange={(event) => searchHandler(event)} />
           {/* <input type="text" value={category} onChange={(event) => searchHandler(event)} /> */}
           {/* <button onClick={onSearchClick} > Search</button> */}
         </div>
-      <div className="products">
+      {/* <div className="products"> */}
+      <div className={classes.root}>
+      <Grid container direction='row' spacing={0} >
         
         {products.map((product) => (
           // (product.category == "Realestate" ?
           product.text_entities.length>0 && product.text_entities.length <2?
           ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) )?
             // (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase()))) ?
-            <div>
+            <Grid item>
+            {/* <Grid item xs={6} sm={3} lg={5} md={5}> */}
             <ProductCard key={product.id} product={product} tag={tag}/> 
-          </div>:null:
+          </Grid>:null:
           product.text_entities.length>1 && product.text_entities.length <3?
             ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
             (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase()))) ?
             // (product.text_entities[2].type == "plain" && product.text_entities[2].text.toLowerCase().includes(category.toLowerCase()))) ?
             // (product.text_entities[3].type == "plain" && product.text_entities[3].text.toLowerCase().includes(category.toLowerCase()))) ?
             
-            <div>
+            <Grid item xs={6} sm={3}>
             <ProductCard key={product.id} product={product} tag={tag}/> 
-          </div>:null:
+          </Grid>:null:
           product.text_entities.length>2 && product.text_entities.length <4?
             ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
             (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase()))||
             (product.text_entities[2].type == "plain" && product.text_entities[2].text.toLowerCase().includes(category.toLowerCase()))) ?
             // (product.text_entities[3].type == "plain" && product.text_entities[3].text.toLowerCase().includes(category.toLowerCase()))) ?
             
-            <div>
+            <Grid item xs={6} sm={3}>
             <ProductCard key={product.id} product={product} tag={tag}/> 
-          </div>:null:
+          </Grid>:null:
         product.text_entities.length>3 && product.text_entities.length<5?
         ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[2].type == "plain" && product.text_entities[2].text.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[3].type == "plain" && product.text_entities[3].text.toLowerCase().includes(category.toLowerCase()))) ?
-        <div>
+        <Grid item xs={6} sm={3}>
             <ProductCard key={product.id} product={product} tag={tag}/> 
-          </div>:null:
+          </Grid>:null:
         product.text_entities.length>4 && product.text_entities.length<6?
         ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[2].type == "plain" && product.text_entities[2].text.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[3].type == "plain" && product.text_entities[3].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[4].type == "plain" && product.text_entities[4].text.toLowerCase().includes(category.toLowerCase()))) ?
-        <div>
+        <Grid item xs={6} sm={3}>
             <ProductCard key={product.id} product={product} tag={tag}/> 
-          </div>:null:
+          </Grid>:null:
         product.text_entities.length>5 && product.text_entities.length<7?
         ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase())) ||
@@ -153,9 +169,9 @@ function Products(data) {
         (product.text_entities[3].type == "plain" && product.text_entities[3].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[4].type == "plain" && product.text_entities[4].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[5].type == "plain" && product.text_entities[5].text.toLowerCase().includes(category.toLowerCase()))) ?
-        <div>
+        <Grid item xs={6} sm={3}>
             <ProductCard key={product.id} product={product} tag={tag}/> 
-          </div>:null:
+          </Grid>:null:
         product.text_entities.length>6 && product.text_entities.length<8?
         ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase())) ||
@@ -164,9 +180,9 @@ function Products(data) {
         (product.text_entities[4].type == "plain" && product.text_entities[4].text.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[5].type == "plain" && product.text_entities[5].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[6].type == "plain" && product.text_entities[6].text.toLowerCase().includes(category.toLowerCase()))) ?
-        <div>
+        <Grid item xs={6} sm={3}>
             <ProductCard key={product.id} product={product} tag={tag}/> 
-          </div>:null:
+          </Grid>:null:
         product.text_entities.length>7 && product.text_entities.length<9?
         ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase())) ||
@@ -176,9 +192,9 @@ function Products(data) {
         (product.text_entities[5].type == "plain" && product.text_entities[5].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[6].type == "plain" && product.text_entities[6].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[7].type == "plain" && product.text_entities[7].text.toLowerCase().includes(category.toLowerCase()))) ?
-        <div>
+        <Grid item xs={6} sm={3}>
             <ProductCard key={product.id} product={product} tag={tag}/> 
-          </div>:null:
+          </Grid>:null:
         product.text_entities.length>8 ?
         ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase())) ||
@@ -189,9 +205,9 @@ function Products(data) {
         (product.text_entities[6].type == "plain" && product.text_entities[6].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[7].type == "plain" && product.text_entities[7].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[8].type == "plain" && product.text_entities[8].text.toLowerCase().includes(category.toLowerCase()))) ?
-        <div>
+        <Grid item xs={6} sm={3}>
             <ProductCard key={product.id} product={product} tag={tag}/> 
-          </div>:null:
+          </Grid>:null:
           null
         // (product.text_entities[3].type == "plain" && product.text_entities[3].text.toLowerCase().includes(category.toLowerCase()))
         // text.toLowerCase().includes(category.toLowerCase()) ?
@@ -205,8 +221,11 @@ function Products(data) {
           // <ProductCard key={product.id} product={product} /> )
         // ))}
         ))}
+        </Grid>
         </div>
-        </div>
+        {/* </div> */}
+        </Container>
+        // </div>
         );
   }
 }
