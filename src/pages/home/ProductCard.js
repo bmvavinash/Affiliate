@@ -29,6 +29,7 @@ import useStyles from './productcd';
 function ProductCard({ className, product, tag }) {
   let prd;
   const classes = useStyles();
+  let imag="https://m.media-amazon.com/images/I/81SW-RJkpTL._SL1500_.jpg"
   if(product.id==1)
   // prd = product.links
     prd="https://amzn.to/3pfGpOz"
@@ -160,10 +161,11 @@ function ProductCard({ className, product, tag }) {
         {/* @Telegram Products */}
         {/* <Link to={{ pathname: product.text_entities[1].text }} target="_blank" > */}
 
-        {/* <Link to={(tag == "avinash" ? `/product/${product.id}`:`/deals/product/${product.id}`)} className="product-card__gallery"> 
-         <CardMedia className={classes.media} image="https://m.media-amazon.com/images/I/81SW-RJkpTL._SL1500_.jpg" title='hai'>
+        <Link to={(tag == "avinash" ? `/product/${product.id}`:`/deals/product/${product.id}`)} className="product-card__gallery"> 
+         {/* <CardMedia className={classes.media} image={(tag == "avinash" ? require(`../../images/${product.photo}`):require(`../../images/pictures/${product.photo}`))} alt='img alt' title='hai'> */}
+         <CardMedia className={classes.media} image={ require(`../../images/${product.photo}`)} alt='img alt' title='hai'>
         </CardMedia>
-        </Link> */}
+        </Link>
 
         {/* <Information key={product.id} product={product} /> */}
 
@@ -172,12 +174,14 @@ function ProductCard({ className, product, tag }) {
         {/* <img src={require('../../images/amazon-logo.png')} alt="not working" /> */}
 
 
-        {/* <img className="product-card__image" 
-        src={(tag == "avinash" ? require(`../../images/${product.photo}`):require(`../../images/pictures/${product.photo}`))} 
-        alt="not working" /> */}
+        <img className="product-card__image" 
+        // src={require(`../../images/${product.photo}`)} 
+        src={imag} 
+        alt="is not working" />
+        {/* // src={(tag == "avinash" ? require(`../../images/${product.photo}`):require(`../../images/pictures/${product.photo}`))}  */}
 
         
-        {/* <br /> */}
+        <br />
         {/* <img src='../../images/1.jpeg'/>
           
              className="product-card__image"

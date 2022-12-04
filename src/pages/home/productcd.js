@@ -4,6 +4,13 @@ const useStyles = makeStyles((theme) => ({
     root:{
         flexGrow:1,
         paddingTop: 30,
+        display: "flex",
+        // paddingInline: "1rem",
+        // paddingInlineEnd: "1rem",
+        // paddingInlineStart: "1rem",
+        // paddingBlockStart: "1rem",
+        // paddingBlockEnd: "1rem",
+        // padding: "1rem" ,
         // paddingLeft: 10,
         // paddingRight:10,
     },
