@@ -91,7 +91,12 @@ function ProductCard({ className, product, tag }) {
     // else if(product.text_entities[3].type=="link")
     // prd = product.text_entities[3].text;
     if(product.text_entities[i].type=="link")
-    prd = product.text_entities[i].text;
+      if(product.text_entities[i].text.includes("amzn"))
+      prd = product.text_entities[i].text;
+      else if(product.text_entities[i].text.includes("media"))
+      imag = product.text_entities[i].text;
+
+
     
     
   }
@@ -100,6 +105,7 @@ function ProductCard({ className, product, tag }) {
   console.log('product tag is '+tag)
   console.log('product photo is '+product.photo);
   if(product.photo != undefined){
+    picture =require(`../../images/${product.photo}`);
     if(product.tag == "avinash"){
       picture =require(`../../images/${product.photo}`);
     }
@@ -111,6 +117,7 @@ function ProductCard({ className, product, tag }) {
   return (
     <>
     {/* <div className="product-card-wrapper"> */}
+    {/* <img src='https://m.media-amazon.com/images/I/81SW-RJkpTL._SL1500_.jpg' alt='begin alt'/> */}
     <Container maxWidth="md">
       {/* <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta> */}
       {/* <div className={classNames('product-card', { [className]: className })}> */}
@@ -145,14 +152,16 @@ function ProductCard({ className, product, tag }) {
         {/* <div className="product-card__title">{product.text_entities[0].text}</div> */}
 
         {/* <div className="product-card__title"> */}
+        <Link to={{ pathname:`/product/${product.id}`}} className="product-card__gallery"> 
         <CardHeader title=
           {product.text_entities[0].type=="plain" ? product.text_entities[0].text :
          product.text_entities[1].type=="plain"?product.text_entities[1].text:
          product.text_entities[2].type=="plain"?product.text_entities[2].text:"hai"
          }
         >
-         {/* </div> */}
          </CardHeader>
+         </Link>
+         {/* </div> */}
         {/* <div className="product-card__title">{prd}</div> */}
         {/* <div className="product-card__title">{product.text_entities[0].text}</div> */}
         {/* (product.category == "Realestate" ?  */}
@@ -160,28 +169,28 @@ function ProductCard({ className, product, tag }) {
 
         {/* @Telegram Products */}
         {/* <Link to={{ pathname: product.text_entities[1].text }} target="_blank" > */}
-
-        <Link to={(tag == "avinash" ? `/product/${product.id}`:`/deals/product/${product.id}`)} className="product-card__gallery"> 
-         {/* <CardMedia className={classes.media} image={(tag == "avinash" ? require(`../../images/${product.photo}`):require(`../../images/pictures/${product.photo}`))} alt='img alt' title='hai'> */}
-         <CardMedia className={classes.media} image={ require(`../../images/${product.photo}`)} alt='img alt' title='hai'>
+        <CardContent>
+        {/* <Link to={(tag == "avinash" ? `/product/${product.id}`:`/deals/product/${product.id}`)} className="product-card__gallery">  */}
+        {/* <Link to={{ pathname:`/product/${product.id}`}} className="product-card__gallery">  */}
+         <CardMedia className={classes.media} image={imag} alt='img alt' title='hai'>
+         {/* <CardMedia className={classes.media} image={require(`../../images/Flag.jpeg`)} alt='img alt' title='hai'> */}
         </CardMedia>
-        </Link>
+        {/* </Link> */}
+        </CardContent>
 
         {/* <Information key={product.id} product={product} /> */}
 
         {/* ) */}
-        {/* <img src="/images/amazon-logo.png" /> */}
-        {/* <img src={require('../../images/amazon-logo.png')} alt="not working" /> */}
+        {/* <img src="https://m.media-amazon.com/images/I/81SW-RJkpTL._SL1500_.jpg" alt="imag alt" /> */}
+        {/* <img src={require('../../images/amazon-logo.png')} alt="not working amzn" /> */}
 
 
-        <img className="product-card__image" 
-        // src={require(`../../images/${product.photo}`)} 
-        src={imag} 
-        alt="is not working" />
-        {/* // src={(tag == "avinash" ? require(`../../images/${product.photo}`):require(`../../images/pictures/${product.photo}`))}  */}
+        {/* <img className="product-card__image" 
+        src={(tag == "avinash" ? require(`../../images/${product.photo}`):require(`../../images/pictures/${product.photo}`))} 
+        alt="not working" /> */}
 
         
-        <br />
+        {/* <br /> */}
         {/* <img src='../../images/1.jpeg'/>
           
              className="product-card__image"

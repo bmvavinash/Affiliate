@@ -5,6 +5,7 @@ import './ImageSlider.scss';
 function ImageSlider({ product,tag }) {
  let picture;
  console.log('Image slider tag is '+tag);
+ picture =require(`../../images/${product.photo}`);
   if(product.photo != undefined){
     if(tag == "avinash"){
       picture =require(`../../images/${product.photo}`);
@@ -13,6 +14,13 @@ function ImageSlider({ product,tag }) {
       picture =require(`../../images/pictures/${product.photo}`);
     }
   }
+  // if(product.text_entities[i].text.includes("amzn"))
+  // prd = product.text_entities[i].text;
+  let i;
+  for(i=0;i<product.text_entities.length;i++)
+  if(product.text_entities[i].type=="link")
+      if(product.text_entities[i].text.includes("media"))
+        picture = product.text_entities[i].text;
   const [images, setImages] = useState([]);
   const [image, setImage] = useState('');
   useEffect(
@@ -59,7 +67,7 @@ function ImageSlider({ product,tag }) {
       <div className="slider__right">
         <div className="slider__display">
         {/* <img src={require(`../../images/${product.photo}`)} alt="not working" /> */}
-          <img alt={product.title} src={picture} />
+          {/* <img alt={product.title} src={picture} /> */}
         </div>
       </div>
     </div>

@@ -90,7 +90,7 @@ function ProductPage(data) {
         </div>
         <div>
 
-        <ImageSlider product={product} tag={tag} />
+        {/* <ImageSlider product={product} tag={tag} /> */}
         </div>
         {/* <ImageSlider key={product.id} product={product} /> */}
         {/* <Information key={product.id} product={product} /> */}
