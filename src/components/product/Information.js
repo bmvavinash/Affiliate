@@ -17,9 +17,11 @@ function Information({ product,person,tag }) {
         // text = product.text_entities[0].text;
         for(i=0;i<product.text_entities.length;i++){
             if(product.text_entities[i].type == "link"){
+              if(product.text_entities[i].text.includes("amzn"))
                 link = product.text_entities[i].text;
             }
         }
+        //Title extraction
             for(i=0;i<product.text_entities.length;i++){
             if(product.text_entities[i].type == "plain"){
                 text = text + product.text_entities[i].text+"\n";
