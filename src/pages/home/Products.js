@@ -19,13 +19,15 @@ import CardMedia  from '@material-ui/core/CardMedia';
 import CardHeader  from '@material-ui/core/CardHeader';
 import { Grid } from '@material-ui/core';
 import useStyles from './productcd';
+import Items from './Items';
 
 
 // import FlagPage from '../flag/index';
 let categoryvalue="";
 function Products(data) {
   let { asinId } = useParams();
-  console.log('Category value is '+data.tag);
+  console.log('Tag value is '+data.tag);
+  console.log('Category value is '+data.category);
   let tag = data.tag;
   console.log("Asin Value is "+asinId);
   // if(asinId != ""){
@@ -39,9 +41,20 @@ function Products(data) {
   const [error, setError] = useState(null);
   // const [category, setCategory] = useState("");
   // const [category, setCategory] = useState(asinId != undefined ? asinId.length==10? asinId :"" : "");
-  const [category, setCategory] = useState(asinId != undefined ? asinId :"");
-     
+  const [category, setCategory] = useState(asinId != undefined ? asinId : data.category);
+  // const [category, setCategory] = useState(data.category);
+  
+  useEffect(()=>{
+    if(data !=undefined){
+      setCategory(data.category);
+    }
+  },[data])
   if(asinId != undefined){
+    // setCategory(data.category);
+  }
+  else{
+    // setCategory(data.category);
+
   }
   const [search, setSearch] = useState("");
   let { check } = useParams();
@@ -50,11 +63,11 @@ function Products(data) {
     setCategory(event.target.value);
     // setCategory(category.toLowerCase());
   }
-
+  
   // if(asinId!=undefined){
-  //   setCategory(asinId);
-  // }
-
+    //   setCategory(asinId);
+    // }
+    
   const onSearchClick = (event) => {
     setSearch(event.target.value);
   }
@@ -73,6 +86,9 @@ function Products(data) {
       }
       else if(tag == "others"){
         json = Deals;
+      }
+      else if(tag == "items"){
+        json = Items;
       }
       setProducts(json);
       console.log('Json value in Products is '+json);
@@ -109,15 +125,28 @@ function Products(data) {
     return (
       <div id='slider' className='overflow-x-scroll scroll'>
       <Container maxWidth="md" className='inline-block p-1'>
-        <div>
-        <input className="search__input" type="text" value={category} placeholder="Search Here" onChange={(event) => searchHandler(event)} />
+
+      {/* <div>
+        <label style={{ color: 'crimson', fontSize:15, lineHeight : 1,lineWidth :8, padding: 20}}>Search :&nbsp;
+          </label>
+        <input  type="text" value={category} placeholder="Product or Category Search" onChange={(event) => searchHandler(event)} />
+        </div> */}
           {/* <input type="text" value={category} onChange={(event) => searchHandler(event)} /> */}
           {/* <button onClick={onSearchClick} > Search</button> */}
-        </div>
+
+
+        {/* <div>
+        <input className="search__input" type="text" value={category} placeholder="Search Here" onChange={(event) => searchHandler(event)} />
+        </div> */}
+
+
+          {/* <input type="text" value={category} onChange={(event) => searchHandler(event)} /> */}
+          {/* <button onClick={onSearchClick} > Search</button> */}
       {/* <div className="products"> */}
       {/* <div style={{display:'flex'}} className={classes.root}> */}
       <div id='slider' className='w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth'>
-      <Grid container spacing={0} id='slider' className='w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth' direction='row'  >
+      <Grid container spacing={0} direction='row'  >
+      {/* <Grid container spacing={0} id='slider' className='w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth' direction='row'  > */}
         
         {products.map((product) => (
           // (product.category == "Realestate" ?

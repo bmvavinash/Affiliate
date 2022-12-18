@@ -6,6 +6,7 @@ import { searchImg } from '../../images/search.jpg';
 import './Search.scss';
 import Products from '../../pages/home/Products';
 import { useCartDispatch } from 'cart-context';
+import Header from '.';
 
 const categories = [
   'Earphones'
@@ -54,7 +55,7 @@ const categories = [
   // 'Watches',
 ];
 
-function Search() {
+function Search(props) {
   const [category, setCategory] = useState("");
   const [searchcategory, setSearchCategory] = useState("");
   const [toSearch, settoSearch] = useState("");
@@ -84,14 +85,19 @@ function Search() {
           </option>
         ))}
       </select> */}
+      {/* <div> */}
+      {/* <Products category={category} /> */}
+      {/* <button className="search__button" onClick={onButtonSearch}> */}
       <input className="search__input" type="text" value={category} onChange = {inputCategory} />
-      {/* <Products category={category} /> */}
-      <button className="search__button" onClick={onButtonSearch}>
-      {/* <Products category={category} /> */}
-        {/* <Icon path={searchImg} size={1.4} /> */}
+      <button className="search__button" onClick={props.searchValue(category)}>
         <Icon path={mdiMagnify} size={1.4} />
       </button>
-
+        {/* <Icon path={searchImg} size={1.4} /> */}
+      {/* </div> */}
+      {/* <div> */}
+        {/* <Header category={category} tag="avinash"></Header> */}
+      {/* <Products category={category} tag="avinash" /> */}
+      {/* </div> */}
     </div>
   );
 }

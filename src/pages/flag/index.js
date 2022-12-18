@@ -134,7 +134,7 @@ const FlagPage=() => {
     }
     else{
       debugger
-      str=`https://www.amazon.in/dp/${count}/?tag=avinash018b-21`
+      str=`https://www.amazon.in/dp/${count}/?tag=avinashbmv-21`
       setCounted(str);
     }
     // <FlagPage counted={counted} />

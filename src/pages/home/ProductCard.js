@@ -104,15 +104,17 @@ function ProductCard({ className, product, tag }) {
   console.log('product is '+product.id);
   console.log('product tag is '+tag)
   console.log('product photo is '+product.photo);
-  if(product.photo != undefined){
-    picture =require(`../../images/${product.photo}`);
-    if(product.tag == "avinash"){
-      picture =require(`../../images/${product.photo}`);
-    }
-    else if(product.tag == "others"){
-      picture =require(`../../images/pictures/${product.photo}`);
-    }
-  }
+
+  //@Images from Local
+  // if(product.photo != undefined){
+  //   picture =require(`../../images/${product.photo}`);
+  //   if(product.tag == "avinash"){
+  //     picture =require(`../../images/${product.photo}`);
+  //   }
+  //   else if(product.tag == "others"){
+  //     picture =require(`../../images/pictures/${product.photo}`);
+  //   }
+  // }
 
   return (
     <>
@@ -136,9 +138,9 @@ function ProductCard({ className, product, tag }) {
               value={basePrice}
             />
           )}
-        </div> */}
+        </div> 
 
-        {/* <div className="product-card__rating">
+         <div className="product-card__rating">
           <Rating rating={product.rating.value} maxRating={5} />
           <div className="product-card__rating-count">
           {product.rating.count} ratings
@@ -173,7 +175,10 @@ function ProductCard({ className, product, tag }) {
         {/* <Link to={(tag == "avinash" ? `/product/${product.id}`:`/deals/product/${product.id}`)} className="product-card__gallery">  */}
         {/* <Link to={{ pathname:`/product/${product.id}`}} className="product-card__gallery">  */}
          <CardMedia className={classes.media} image={imag} alt='img alt' title='hai'>
-         {/* <CardMedia className={classes.media} image={require(`../../images/Flag.jpeg`)} alt='img alt' title='hai'> */}
+         {/* <CardMedia component="img" className={classes.media} src={require("../../images/1.jpeg")} alt='img alt' title='hai'> */}
+         {/* <CardMedia> */}
+
+        {/* <img src="../../images/1.jpeg" alt="not working amzn" /> */}
         </CardMedia>
         {/* </Link> */}
         </CardContent>
@@ -182,7 +187,6 @@ function ProductCard({ className, product, tag }) {
 
         {/* ) */}
         {/* <img src="https://m.media-amazon.com/images/I/81SW-RJkpTL._SL1500_.jpg" alt="imag alt" /> */}
-        {/* <img src={require('../../images/amazon-logo.png')} alt="not working amzn" /> */}
 
 
         {/* <img className="product-card__image" 

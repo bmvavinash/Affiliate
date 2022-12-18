@@ -82,9 +82,9 @@ function Information({ product,person,tag }) {
             <br />
             <br />
             
-            {/* <Link to={{ pathname: wats }} target="_blank" >
+            <Link to={{ pathname: wats }} target="_blank" >
               <button style={{ color: 'crimson', fontSize:20, lineHeight : 1 ,marginLeft: 100, fillOpacity:'blue'}}>Facing Issue ?</button>
-            </Link> */}
+            </Link>
 
 
                     {/* <Link to={{ pathname: product.text_entities[1].text }} target="_blank" > */}

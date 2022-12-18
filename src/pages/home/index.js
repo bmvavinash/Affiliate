@@ -9,11 +9,15 @@ function HomePage(data) {
   console.log("Home Page tag is "+data.tag)
   return (
     <div className="home">
-      {/* <Banner /> */}
+      <div>
+        
+      <Banner />
+      <br/>
+      </div>
       {/* <h3>Watches</h3> */}
       <div className="home__section">
         {/* <Products  /> */}
-        <Products tag = {data.tag} />
+        <Products tag = {data.tag} category={data.category}/>
       </div>
     </div>
   );

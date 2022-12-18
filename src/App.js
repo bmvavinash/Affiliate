@@ -16,10 +16,30 @@ import { Laptop } from 'components/laptop/laptop.component';
 // import { BigScreen } from 'components/big-screen/big-screen.component';
 import { TabletMobile } from 'components/tablet/tablet-mobile.component';
 import Products from 'pages/home/Products';
+import ItemProducts from 'pages/home/ItemProducts';
+import Logo from 'components/header/Logo';
+import Search from 'components/header/Search';
 
 function App() {
 
   const [tag, setTag] = useState(false);
+  const [searchData, setSearchData] = useState("");
+
+  console.log('App Search Data is '+searchData);
+
+
+  const categoryHandler = (e) =>{
+    console.log('Search Value in App is '+e);
+    setSearchData(e);
+    // setCategory(e);
+    // console.log('Search Value in header is '+category);
+  }
+
+  const searchDataHandler = (e) =>{
+    console.log('App Value is '+e);
+    // setCategory(e);
+    // console.log('Search Value in header is '+category);
+  }
   // const isMobileDevice = useMediaQuery({
   //   query: "(min-device-width: 480px)",
   // });
@@ -54,7 +74,14 @@ function App() {
   {isLaptop && <Laptop />} */}
   {/* {isBigScreen && <BigScreen />} */}
 {/* </>} */}
-      <Header />
+      <Header searchDataHandler={searchDataHandler} searchValue={(e)=> categoryHandler(e)}/>
+      {/* <div>
+        <Logo></Logo>
+      </div>
+      <div>
+        
+        <Search searchValue={(e) => categoryHandler(e)}></Search>
+      </div> */}
 
       <div className="page-container">
         <Switch>
@@ -68,7 +95,12 @@ function App() {
 
           <Route exact path="/deals">
             {/* <DealsPage /> */}
-            <HomePage tag="others" />
+            <Products tag="others" category={searchData}/>
+            {/* <HomePage tag="others" category={searchData}/> */}
+          </Route>
+
+          <Route exact path="/items">
+            <ItemProducts tag="items" category={searchData}/>
           </Route>
 
           <Route exact path="/product/:productId">
@@ -76,12 +108,15 @@ function App() {
           </Route>
 
           <Route exact path="/:asinId">
-            <Products tag="avinash" />
+            <Products tag="avinash" category={searchData} />
+            {/* <HomePage tag="avinash" category={searchData} /> */}
           </Route>
 
           <Route exact path="/deals/:asinId">
-            <Products tag="avinash" />
+            <Products tag="others" category={searchData} />
+            {/* <HomePage tag="others" category={searchData} /> */}
           </Route>
+
 
           <Route exact path="/deals/product/:productId">
             <ProductPage tag="others" />
@@ -93,7 +128,7 @@ function App() {
 
           {/* <Route exact path="/"> */}
           <Route>
-            <HomePage tag="avinash" />
+            <HomePage tag="avinash" category={searchData}/>
           </Route>
         </Switch>
       </div>

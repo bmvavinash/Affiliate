@@ -22,9 +22,11 @@ const useStyles = makeStyles((theme) => ({
         // paddingRight:10,
     },
     media:{
+        // height:"300px" or "10em",
         height:0,
         paddingTop: "56.25%",  // 16:9
-        paddingBottom:0,
+        // paddingBottom:0,
+        // marginTop:'30',
     }
 }));
 
