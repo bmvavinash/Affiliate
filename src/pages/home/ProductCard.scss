@@ -29,8 +29,9 @@
   box-shadow: var(--default-shadow);
 
   &__title {
-    font-weight: bold;
+    font-weight: bolder;
     margin-bottom: 0.5rem;
+    
   }
 
   &__price {
@@ -87,4 +88,15 @@
     // background-color: var(--theme-color-1);
     background-color: greenyellow;
   }
+}
+
+.add-to-cart-button {
+  padding: 0.5rem 1rem;
+  // background-color: var(--theme-color-1);
+  background-color: greenyellow;
+  cursor: pointer;
+  border: 0.1rem solid #e2e2e2;
+  outline: none;
+  box-shadow: none;
+  font-weight: bold;
 }

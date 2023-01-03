@@ -10,6 +10,7 @@ import productsApi from 'api/products';
 import Loader from 'components/general/Loader';
 import Error from 'components/general/Error';
 import products from 'api/products';
+import Items from 'pages/home/Items';
 
 function ProductPage(data) {
   console.log('Product Page');
@@ -55,6 +56,14 @@ function ProductPage(data) {
       }
 
     }
+    else if(tag=="items"){
+      for(i=0;i<Items.length;i++){
+        if(productId == Items[i].id){
+          json = Items[i];
+        }
+      }
+
+    }
       // const json = productsApi.getProduct(productId);
       // const json = await Input[productId - Input[0].id];
 
@@ -87,10 +96,10 @@ function ProductPage(data) {
         <div>
 
         <Information product={product} person={person} tag={tag}/>
+        <ImageSlider product={product} tag={tag} />
         </div>
         <div>
 
-        {/* <ImageSlider product={product} tag={tag} /> */}
         </div>
         {/* <ImageSlider key={product.id} product={product} /> */}
         {/* <Information key={product.id} product={product} /> */}

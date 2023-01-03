@@ -18,7 +18,8 @@ function Header(props) {
   const [category, setCategory] = useState("");
 
   let { check } = useParams();
-  check = category;
+  console.log('Header Param value is '+check);
+  // check = category;
   const location = useLocation()
   // const [searchParams] = useSearchParams();
   // console.log('url data is '+searchParams.userId)
@@ -119,9 +120,9 @@ function Header(props) {
       {/* </select> */}
 
             <input className="search__input" type="text" placeholder='Search Here' value={category} onChange = {inputCategory} />
-          {/* <button className="search__button" onClick={props.searchValue(category)}>
+          <button className="search__button" onClick={props.searchValue(category)}>
             <Icon path={mdiMagnify} size={1.4} />
-          </button> */}
+          </button>
         </div>
 
 
@@ -137,7 +138,8 @@ function Header(props) {
         <div>
         <Link to="/" className="logo">
 
-        <button style={{ color: 'crimson', padding: '0.5rem 0.5rem 0 0.5rem', fontSize:18, lineHeight : 1 ,marginLeft: 10,marginTop: 12, fillOpacity:'blue'}}>Amazon Items</button>
+        {/* <button style={{ color: 'crimson', padding: '0.5rem 0.5rem 0 0.5rem', fontSize:18, lineHeight : 1 ,marginLeft: 10,marginTop: 12, fillOpacity:'blue'}}>Amazon Deals</button> */}
+        <button className='add-to-cart-button' style={{marginTop:12, marginLeft:10}}>Amazon Deals</button>
         </Link>
         <br />
         <br />

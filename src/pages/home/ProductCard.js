@@ -27,9 +27,15 @@ import useStyles from './productcd';
 
 
 function ProductCard({ className, product, tag }) {
-  let prd;
+  let prd="https://google.com";
   const classes = useStyles();
-  let imag="https://m.media-amazon.com/images/I/81SW-RJkpTL._SL1500_.jpg"
+  // let imag="https://m.media-amazon.com/images/I/81SW-RJkpTL._SL1500_.jpg"
+  let imag;
+  if(tag=="items")
+  {
+    imag = product.photo;
+  }
+  let wats = `https://wa.me/919951797149?text=Interested%20in%20${product.id}`;
   if(product.id==1)
   // prd = product.links
     prd="https://amzn.to/3pfGpOz"
@@ -75,17 +81,17 @@ function ProductCard({ className, product, tag }) {
   // const { finalPrice, basePrice, isDiscounted } = calculatePriceDetails(
   //   product.price,
   // );
-  let i,picture;
+  let i,picture,path;
   // prd = product.text_entities[1].text;
   for(i=0;i<product.text_entities.length;i++){
     // if(product.text_entities[1].type=="mention" && product.text_entities.length>3)
     // prd = product.text_entities[2].text;
 
-    if(product.text_entities.length>3)
-    if(product.text_entities[0].type=="link")
-    prd = product.text_entities[0].text;
-    else if(product.text_entities[1].type=="link")
-    prd = product.text_entities[1].text;
+    // if(product.text_entities.length>3)
+    // if(product.text_entities[0].type=="link")
+    // prd = product.text_entities[0].text;
+    // else if(product.text_entities[1].type=="link")
+    // prd = product.text_entities[1].text;
     // else if(product.text_entities[2].type=="link")
     // prd = product.text_entities[2].text;
     // else if(product.text_entities[3].type=="link")
@@ -104,6 +110,16 @@ function ProductCard({ className, product, tag }) {
   console.log('product is '+product.id);
   console.log('product tag is '+tag)
   console.log('product photo is '+product.photo);
+
+  if(tag=="avinash"){
+    path=`/product/${product.id}`
+  }
+  else if(tag=="items"){
+    path=`/items/product/${product.id}`
+  }
+  else if(tag=="deals"){
+    path=`/deals/product/${product.id}`
+  }
 
   //@Images from Local
   // if(product.photo != undefined){
@@ -154,15 +170,20 @@ function ProductCard({ className, product, tag }) {
         {/* <div className="product-card__title">{product.text_entities[0].text}</div> */}
 
         {/* <div className="product-card__title"> */}
-        <Link to={{ pathname:`/product/${product.id}`}} className="product-card__gallery"> 
-        <CardHeader title=
-          {product.text_entities[0].type=="plain" ? product.text_entities[0].text :
+        {product.text_entities.length>=0 ?
+        <Link to={{ pathname:path}} className="product-card__gallery"> 
+        {/* <Link to={{ pathname:`/product/${product.id}`}} className="product-card__gallery">  */}
+        {/* <Link to={(tag == "avinash" ? `/product/${product.id}`:
+        tag=="items"? `/items/product/${product.id}`:`/deals/product/${product.id}`)} className="product-card__gallery">  */}
+        <CardHeader className="product-card__title" title=
+          {product.text_entities.length>0 ? product.text_entities[0].type=="plain" ? product.text_entities[0].text :
          product.text_entities[1].type=="plain"?product.text_entities[1].text:
-         product.text_entities[2].type=="plain"?product.text_entities[2].text:"hai"
+         product.text_entities[2].type=="plain"?product.text_entities[2].text:
+         "Image":"for details click"
          }
         >
          </CardHeader>
-         </Link>
+         </Link>:"Details"}
          {/* </div> */}
         {/* <div className="product-card__title">{prd}</div> */}
         {/* <div className="product-card__title">{product.text_entities[0].text}</div> */}
@@ -208,11 +229,18 @@ function ProductCard({ className, product, tag }) {
         />   */}
         {/* <div className="product-card__actions"> */}
         <CardContent>
+          {tag=="avinash"?
         <Link to={{ pathname: prd }} target="_blank" >
         {/* <button style={{ color: 'crimson', fontSize:20, lineHeight : 1 ,marginLeft: 100, fillOpacity:'blue', backgroundColor:"greenyellow"}}>View in Amazon</button> */}
-        <button style={{color: 'crimson', backgroundColor:"greenyellow"}} color='primary' variant='contained' >View in Amazon</button>
+        {/* <button className='add-to-cart-button' style={{color: 'crimson', backgroundColor:"greenyellow", alignContent:"center"}} color='primary' variant='contained' >View in Amazon</button> */}
+        <button className='add-to-cart-button'  >View on Amazon</button>
           {/* <button className='product-card__buttons' >View in Amazon</button> */}
-        </Link>
+        </Link>:
+        tag=="items"?
+        <Link to={{ pathname: wats }} target="_blank" >
+              <button style={{ color: 'crimson', fontSize:20, alignContent:"center", lineHeight : 1 , fillOpacity:'blue', backgroundColor:"greenyellow"}} alignContent="center">Interested</button>
+            </Link>:null
+        }
           </CardContent>
         {/* <button onClick="https://www.google.com">Submit</button> */}
         {/* <div className="product-card__actions">

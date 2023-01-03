@@ -1,8 +1,11 @@
 .products {
-  position: absolute;
-  z-index: 1;
-  display: flex;
+  // position: absolute;
+  // position: relative;
+  z-index: 1;//check
+  // display: flex;
+  display:inline-block;
   align-items: stretch;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   margin-top: 3rem;
+  overflow-x:auto;
 }

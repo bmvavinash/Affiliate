@@ -50,3 +50,15 @@
 .strikethrough {
   text-decoration: line-through;
 }
+
+.add-to-cart-button {
+  padding: 0.5rem 1rem;
+  // background-color: var(--theme-color-1);
+  background-color: greenyellow;
+  cursor: pointer;
+  border: 1rem solid #e2e2e2;
+  outline: none;
+  box-shadow: 10px;
+  font-weight: bold;
+}
+

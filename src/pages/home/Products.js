@@ -20,6 +20,10 @@ import CardHeader  from '@material-ui/core/CardHeader';
 import { Grid } from '@material-ui/core';
 import useStyles from './productcd';
 import Items from './Items';
+import { orange } from '@material-ui/core/colors';
+
+require("core-js/actual/array/group-by-to-map");
+require("core-js/actual/array/group-by");
 
 
 // import FlagPage from '../flag/index';
@@ -37,6 +41,7 @@ function Products(data) {
   // }
 // function Products(setCounted) {
   const [products, setProducts] = useState([]);
+  const [categorizedProducts, setategorizedProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   // const [category, setCategory] = useState("");
@@ -49,16 +54,19 @@ function Products(data) {
       setCategory(data.category);
     }
   },[data])
+  useEffect(()=>{
   if(asinId != undefined){
     // setCategory(data.category);
+    setCategory(asinId);
   }
   else{
     // setCategory(data.category);
 
   }
+},[asinId])
   const [search, setSearch] = useState("");
-  let { check } = useParams();
-  console.log('Params is '+check);
+  // let { check } = useParams();
+  // console.log('Params is '+check);
   const searchHandler = (event) => {
     setCategory(event.target.value);
     // setCategory(category.toLowerCase());
@@ -71,9 +79,55 @@ function Products(data) {
   const onSearchClick = (event) => {
     setSearch(event.target.value);
   }
+ let i;
+   const groupByCategoryReduce = products.reduce((group, product) => {
+  // const groupByCategoryReduce = products.reduce((products[key].category, product) => {
+    
+    let { cat } = product;
+  for(i=0;i<product.text_entities.length;i++){
+    if(product.text_entities[i].type=="hashtag"){
+      cat=product.text_entities[i].text;
+    }
+    
+  }
+  if(cat=="")
+  {
+    cat="all"
+  }
+
+    // const { category } = product;
+    // console.log('product in reduce is '+{product});
+    // console.log('group in reduce is '+{group});
+
+    // group[category] = group[category] ?? [];
+    // group[category].push(product);
+    group[cat] = group[cat] ?? [];
+    group[cat].push(product);
+    return group;
+  }, {});
+  debugger
+  console.log('groupByCategoryReduce is '+ products);
+  console.log('groupByCategoryReduce is '+ groupByCategoryReduce);
+  const { arr } = {...groupByCategoryReduce};
+  // setProducts(groupByCategoryReduce);
+  console.log('arr is '+arr)
+
+  // const groupByCategory = products.groupBy(product => {
+  //   for(i=0;i<product.text_entities.length;i++){
+  //     if(product.text_entities[i].type=="hashtag"){
+  //       product.category=product.text_entities[i].text;
+  //     }
+  //   }
+  //   if(product.category=""){
+  //     product.category="others"
+  //   }
+  //   return product.category;
+  // });
+  // console.log(groupByCategory); 
 
   const loadProducts = useCallback(async () => {
-    if (loading || products.length > 0) return;
+    if (loading || categorizedProducts.length > 0) return;
+    // if (loading || products.length > 0) return;
 
     setLoading(true);
     setError(null);
@@ -91,6 +145,7 @@ function Products(data) {
         json = Items;
       }
       setProducts(json);
+      setategorizedProducts(json);
       console.log('Json value in Products is '+json);
       // console.log(products.id);
 
@@ -99,7 +154,8 @@ function Products(data) {
       setError(_error);
     }
     setLoading(false);
-  }, [loading, products]);
+  }, [loading, categorizedProducts]);
+  // }, [loading, products]);
 
   useEffect(() => {
     loadProducts();
@@ -122,6 +178,57 @@ function Products(data) {
   } else if (error) {
     return <Error message="Failed to load products" actionFn={loadProducts} />;
   } else {
+
+    
+  let i,cat;
+    try{
+  for(i=0;i<products.text_entities.length;i++){
+    if(products.text_entities[i].type=="hashtag"){
+      products.category=products.text_entities[i].text;
+    }
+  }
+  if(products.category=""){
+    products.category="others"
+  }
+}
+catch(e){
+  console.log('len error')
+}
+
+  // const groupByCategoryReduce = products.reduce(( (group) => "orange", product) => {
+  // const groupByCategoryReduce = products.reduce((group, product) => {
+  // // const groupByCategoryReduce = products.reduce((products[key].category, product) => {
+    
+  //   let { cat } = product;
+  // for(i=0;i<product.text_entities.length;i++){
+  //   if(product.text_entities[i].type=="hashtag"){
+  //     cat=product.text_entities[i].text;
+  //   }
+    
+  // }
+  // if(cat=="")
+  // {
+  //   cat="all"
+  // }
+
+  //   // const { category } = product;
+  //   // console.log('product in reduce is '+{product});
+  //   // console.log('group in reduce is '+{group});
+
+  //   // group[category] = group[category] ?? [];
+  //   // group[category].push(product);
+  //   group[cat] = group[cat] ?? [];
+  //   group[cat].push(product);
+  //   return group;
+  // }, {});
+  // debugger
+  // console.log('groupByCategoryReduce is '+ products);
+  // console.log('groupByCategoryReduce is '+ groupByCategoryReduce);
+  // const { arr } = {...groupByCategoryReduce};
+  // // setProducts(groupByCategoryReduce);
+  // console.log('arr is '+arr)
+
+
     return (
       <div id='slider' className='overflow-x-scroll scroll'>
       <Container maxWidth="md" className='inline-block p-1'>
@@ -145,13 +252,21 @@ function Products(data) {
       {/* <div className="products"> */}
       {/* <div style={{display:'flex'}} className={classes.root}> */}
       <div id='slider' className='w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth'>
-      <Grid container spacing={0} direction='row'  >
+      <Grid className="products" container spacing={0} direction='row'  >
       {/* <Grid container spacing={0} id='slider' className='w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth' direction='row'  > */}
         
-        {products.map((product) => (
-          // (product.category == "Realestate" ?
+        {/* {{...groupByCategoryReduce}.map((product) => ( */}
+        {/* {arr.map((product) => ( */}
+           {/* (product.category == "Realestate" ? */}
+        {categorizedProducts.map((product) => (
+          product.text_entities.length == 0 && category == "" ||
+            (product.from.toLowerCase().includes(category.toLowerCase()))?
+            <Grid item xs={6} sm={4} md={3} lg={3} xl={2}>
+            <ProductCard key={product.id} product={product} tag={tag}/> 
+          </Grid>:
           product.text_entities.length>0 && product.text_entities.length <2?
-          ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) )?
+          ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ) ||
+          (product.from.toLowerCase().includes(category.toLowerCase()))?
             // (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase()))) ?
             // <Grid item>
             <Grid item xs={6} sm={4} md={3} lg={3} xl={2}>
@@ -159,6 +274,7 @@ function Products(data) {
           </Grid>:null:
           product.text_entities.length>1 && product.text_entities.length <3?
             ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
+            (product.from.toLowerCase().includes(category.toLowerCase()))||
             (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase()))) ?
             // (product.text_entities[2].type == "plain" && product.text_entities[2].text.toLowerCase().includes(category.toLowerCase()))) ?
             // (product.text_entities[3].type == "plain" && product.text_entities[3].text.toLowerCase().includes(category.toLowerCase()))) ?
@@ -168,6 +284,7 @@ function Products(data) {
           </Grid>:null:
           product.text_entities.length>2 && product.text_entities.length <4?
             ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
+            (product.from.toLowerCase().includes(category.toLowerCase()))||
             (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase()))||
             (product.text_entities[2].type == "plain" && product.text_entities[2].text.toLowerCase().includes(category.toLowerCase()))) ?
             // (product.text_entities[3].type == "plain" && product.text_entities[3].text.toLowerCase().includes(category.toLowerCase()))) ?
@@ -177,6 +294,7 @@ function Products(data) {
           </Grid>:null:
         product.text_entities.length>3 && product.text_entities.length<5?
         ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
+        (product.from.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[2].type == "plain" && product.text_entities[2].text.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[3].type == "plain" && product.text_entities[3].text.toLowerCase().includes(category.toLowerCase()))) ?
@@ -185,6 +303,7 @@ function Products(data) {
           </Grid>:null:
         product.text_entities.length>4 && product.text_entities.length<6?
         ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
+        (product.from.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[2].type == "plain" && product.text_entities[2].text.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[3].type == "plain" && product.text_entities[3].text.toLowerCase().includes(category.toLowerCase())) ||
@@ -194,6 +313,7 @@ function Products(data) {
           </Grid>:null:
         product.text_entities.length>5 && product.text_entities.length<7?
         ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
+        (product.from.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[2].type == "plain" && product.text_entities[2].text.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[3].type == "plain" && product.text_entities[3].text.toLowerCase().includes(category.toLowerCase())) ||
@@ -204,6 +324,7 @@ function Products(data) {
           </Grid>:null:
         product.text_entities.length>6 && product.text_entities.length<8?
         ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
+        (product.from.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[2].type == "plain" && product.text_entities[2].text.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[3].type == "plain" && product.text_entities[3].text.toLowerCase().includes(category.toLowerCase())) ||
@@ -215,6 +336,7 @@ function Products(data) {
           </Grid>:null:
         product.text_entities.length>7 && product.text_entities.length<9?
         ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
+        (product.from.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[2].type == "plain" && product.text_entities[2].text.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[3].type == "plain" && product.text_entities[3].text.toLowerCase().includes(category.toLowerCase())) ||
@@ -227,6 +349,7 @@ function Products(data) {
           </Grid>:null:
         product.text_entities.length>8 ?
         ((product.text_entities[0].type == "plain" && product.text_entities[0].text.toLowerCase().includes(category.toLowerCase())) ||
+        (product.from.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[1].type == "plain" && product.text_entities[1].text.toLowerCase().includes(category.toLowerCase())) ||
         (product.text_entities[2].type == "plain" && product.text_entities[2].text.toLowerCase().includes(category.toLowerCase()))||
         (product.text_entities[3].type == "plain" && product.text_entities[3].text.toLowerCase().includes(category.toLowerCase())) ||

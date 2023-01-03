@@ -15,11 +15,11 @@ const banners = [
 ];
 
 function Banner() {
-  <img //style="height:100px; width:100px;"
-            className="product-card__image"
-            alt={"hai"}
-            src={WelcomePage}
-          />
+  // <img //style={{height:100px width:100px"}}
+  // <img className="product-card__image"
+  //           alt={"hai"}
+  //           src={WelcomePage}
+  //         />
   return (
     <div className="h-banner">
       <div className="h-banner__carousel">

@@ -19,10 +19,11 @@ import Products from 'pages/home/Products';
 import ItemProducts from 'pages/home/ItemProducts';
 import Logo from 'components/header/Logo';
 import Search from 'components/header/Search';
+import Home from 'pages/home/Home';
 
 function App() {
 
-  const [tag, setTag] = useState(false);
+  const [tag, setTag] = useState("");
   const [searchData, setSearchData] = useState("");
 
   console.log('App Search Data is '+searchData);
@@ -74,6 +75,8 @@ function App() {
   {isLaptop && <Laptop />} */}
   {/* {isBigScreen && <BigScreen />} */}
 {/* </>} */}
+
+      
       <Header searchDataHandler={searchDataHandler} searchValue={(e)=> categoryHandler(e)}/>
       {/* <div>
         <Logo></Logo>
@@ -84,6 +87,7 @@ function App() {
       </div> */}
 
       <div className="page-container">
+      {/* <div > */}
         <Switch>
           <Route exact path="/cart">
             <CartPage />
@@ -100,11 +104,21 @@ function App() {
           </Route>
 
           <Route exact path="/items">
-            <ItemProducts tag="items" category={searchData}/>
+            <Products tag="items" category={searchData}/>
+            {/* <ItemProducts tag="items" category={searchData}/> */}
+          </Route>
+
+          <Route exact path="/items/:asinId">
+            <Products tag="items" category={searchData}/>
+            {/* <ItemProducts tag="items" category={searchData}/> */}
           </Route>
 
           <Route exact path="/product/:productId">
             <ProductPage tag="avinash" />
+          </Route>
+
+          <Route exact path="/items/product/:productId">
+            <ProductPage tag="items" />
           </Route>
 
           <Route exact path="/:asinId">
@@ -124,6 +138,10 @@ function App() {
 
           <Route exact path="/login">
             <LoginPage />
+          </Route>
+
+          <Route exact path="/home">
+            <Home />
           </Route>
 
           {/* <Route exact path="/"> */}

@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 function Information({ product,person,tag }) {
     console.log('product in information is '+product.id);
     console.log('person is '+person);
-    let text="",link,wats;
+    let text="",link,wats,btntext="View in Amazon";
     try{
         let i;
         wats = `https://wa.me/919951797149?text=Error%20in%20${product.id}`;
@@ -27,10 +27,17 @@ function Information({ product,person,tag }) {
                 text = text + product.text_entities[i].text+"\n";
                 // break;
             }
+            if(text==""){
+                text="image"
+            }
             else if(product.text_entities[i].type == "link"){
                 // text = text + product.text_entities[i].text+"\n";
                 break;
             }
+        }
+        if(tag=="items"){
+            link=wats;
+            btntext="Interested"
         }
         // <div className="information__header">{product.text_entities[0].type!="link" ? product.text_entities[0].text : "hai"}</div>
     }
@@ -65,10 +72,11 @@ function Information({ product,person,tag }) {
                         <br />
                         <br />
 
-
+            {link!=""?
             <Link to={{ pathname: link }} target="_blank" >
-              <button style={{ color: 'crimson', fontSize:20, lineHeight : 1 ,marginLeft: 100, fillOpacity:'blue'}}>View in Amazon</button>
+              <button className='add-to-cart-button' style={{ color: 'crimson', fontSize:20, lineHeight : 1 ,marginLeft: 100, fillOpacity:'blue'}}>{btntext}</button>
             </Link>
+            :null}
             <br />
             <br />
             <br />
@@ -77,13 +85,13 @@ function Information({ product,person,tag }) {
 
             <Link to="/" className="logo">
 
-              <button style={{ color: 'crimson', fontSize:20, lineHeight : 1 ,marginLeft: 100, fillOpacity:'blue'}}>View all Products</button>
+              <button className='add-to-cart-button' style={{ color: 'crimson', fontSize:20, lineHeight : 1 ,marginLeft: 10, fillOpacity:'blue'}}>View all Products</button>
             </Link>
             <br />
             <br />
             
             <Link to={{ pathname: wats }} target="_blank" >
-              <button style={{ color: 'crimson', fontSize:20, lineHeight : 1 ,marginLeft: 100, fillOpacity:'blue'}}>Facing Issue ?</button>
+              <button style={{ color: 'crimson', fontSize:20, lineHeight : 1 ,marginLeft: 200, fillOpacity:'blue'}}>Facing Issue ?</button>
             </Link>
 
 
